@@ -1,0 +1,29 @@
+name: Run Dynamic Elements Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  selenium-test:
+
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Project
+        run: mvn clean compile
+
+      - name: Run DynamicElements.java
+        run: mvn test -Dtest=DynamicElements
